@@ -320,7 +320,6 @@ df_sel_PCA=[]
 for current_shower in Shower:
     # find the mean of the simulated shower
     meanPCA_current = meanPCA.loc[(meanPCA.index == current_shower)]
-    # meanPCA_current = meanPCA_current.values[0]
 
     # find the distance between the mean and all the simulated shower
     distance_current = []
