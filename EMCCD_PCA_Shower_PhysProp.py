@@ -45,6 +45,9 @@ def read_GenerateSimulations_folder_output(shower_folder,Shower='',save_it=False
     shower_folder:  folder of the simulated meteors.
     Shower:         Shower name, by default there is no name.
     save_it:        Boolean - save the extracted dataframe in a .csv, by default it is not saved.
+    
+    OUTPUT:
+    df_json:        dataframe with the observable and physical properties of the simulated meteors
     '''
 
     # open the folder and extract all the json files
@@ -136,6 +139,9 @@ def read_solution_table_json(df_simul,Shower='',save_it=False):
     df_simul:       dataframe of the simulated shower
     Shower:         Shower name, by default there is no name.
     save_it:        Boolean - save the extracted dataframe in a .csv, by default it is not saved.
+
+    OUTPUT:
+    df_shower_EMCCD:dataframe with the observable properties of the meteors shower observed by the EMCCD camera
     '''
 
     # open the solution_table.json file
@@ -189,7 +195,7 @@ def read_solution_table_json(df_simul,Shower='',save_it=False):
 
 
 
-# CODE ####################################################################################
+# MAIN program ####################################################################################
 
 # save all the simulated showers in a list
 df_sim_shower = []
@@ -228,10 +234,6 @@ df_obs_shower = pd.concat(df_obs_shower)
 df_all = pd.concat([df_sim_shower.drop(['rho','sigma','erosion_height_start','erosion_coeff','erosion_mass_index','erosion_mass_min','erosion_mass_max'], axis=1),df_obs_shower], axis=0)
 
 # Now we have all the data and we apply PCA to the dataframe
-
-sns.pairplot(df_all[['shower_code','mass','duration','beg_abs_mag','vel_init_norot']], hue='shower_code', plot_kws={'alpha': 0.6, 's': 5, 'edgecolor': 'k'},corner=True)
-plt.show()
-
 # scale the data
 scaler = StandardScaler()
 scaler.fit(df_all.drop(['shower_code'], axis=1))

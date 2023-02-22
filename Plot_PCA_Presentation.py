@@ -20,10 +20,10 @@ df_obs_GEM = pd.read_csv(os.getcwd()+r'\GEM.csv')
 df_obs_PER = pd.read_csv(os.getcwd()+r'\PER.csv')
 
 # create the dataframe with the simulated shower
-df_sim_shower = pd.concat([df_sim_GEM,df_sim_PER], axis=0)
+df_sim_shower = pd.concat([df_sim_PER,df_sim_GEM], axis=0)
 
 # create the dataframe with the observed shower
-df_obs_shower = pd.concat([df_obs_GEM,df_obs_PER], axis=0)
+df_obs_shower = pd.concat([df_obs_PER,df_obs_GEM], axis=0)
 
 # create the dataframe with all the shower
 df_all = pd.concat([df_sim_shower.drop(['rho','sigma','erosion_height_start','erosion_coeff','erosion_mass_index','erosion_mass_min','erosion_mass_max'], axis=1),df_obs_shower], axis=0)
@@ -32,7 +32,7 @@ df_all = pd.concat([df_sim_shower.drop(['rho','sigma','erosion_height_start','er
 df_sel_GEM_PCA = pd.read_csv(os.getcwd()+r'\Simulated_GEM_select_PCA.csv')
 df_sel_PER_PCA = pd.read_csv(os.getcwd()+r'\Simulated_PER_select_PCA.csv')
 
-df_sel_shower = pd.concat([df_sel_GEM_PCA,df_sel_PER_PCA], axis=0)
+df_sel_shower = pd.concat([df_sel_PER_PCA,df_sel_GEM_PCA], axis=0)
 
 # scale the data
 scaler = StandardScaler()
@@ -94,10 +94,10 @@ plt.show()
 
 TOT_PCA_DataFrame=pd.concat([df_all_PCA,meanPCA], axis=0)
 
-sns.pairplot(TOT_PCA_DataFrame, hue='shower_code', palette=["g","b","y","r","k","k"], markers=["o", "o","o", "o", "P", "D"], plot_kws={'s': 20},corner=True) #markers=["o", "s", "D", "P"],corner=True 'alpha': 0.6,
+sns.pairplot(TOT_PCA_DataFrame, hue='shower_code', palette=["g","b","y","r","k","k"], markers=["o", "o","o", "o", "D", "P"], plot_kws={'s': 20},corner=True) #markers=["o", "s", "D", "P"],corner=True 'alpha': 0.6,
 plt.show()
 
 TOT_PCA_DataFrame_selected=pd.concat([df_sim_PCA,df_sel_shower,meanPCA], axis=0)
 
-sns.pairplot(TOT_PCA_DataFrame_selected, hue='shower_code', palette=["g","b","y","r","k","k"], markers=["o", "o","P", "D", "P", "D"], plot_kws={'s': 20},corner=True) #markers=["o", "s", "D", "P"],corner=True 'alpha': 0.6,
+sns.pairplot(TOT_PCA_DataFrame_selected, hue='shower_code', palette=["g","b","y","r","k","k"], markers=["o", "o","P", "D","D", "P"], plot_kws={'s': 20},corner=True) #markers=["o", "s", "D", "P"],corner=True 'alpha': 0.6,
 plt.show()
